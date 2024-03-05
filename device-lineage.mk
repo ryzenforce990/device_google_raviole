@@ -15,9 +15,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml
 
-# Kernel
-TARGET_PREBUILT_KERNEL := device/google/raviole-kernel/Image.lz4
-
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
 
@@ -163,3 +160,6 @@ PRODUCT_PACKAGES += \
     android.hardware.weaver-V2-ndk.vendor:64 \
     android.hardware.wifi-V1-ndk.vendor:64 \
     com.google.hardware.pixel.display-V4-ndk.vendor:64
+
+# PixelParts
+include packages/apps/PixelParts/device.mk

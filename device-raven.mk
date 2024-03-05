@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-TARGET_KERNEL_DIR ?= device/google/raviole-kernel
-TARGET_BOARD_KERNEL_HEADERS := device/google/raviole-kernel/kernel-headers
-
 $(call inherit-product-if-exists, vendor/google_devices/raviole/prebuilts/device-vendor-raven.mk)
 $(call inherit-product-if-exists, vendor/google_devices/gs101/prebuilts/device-vendor.mk)
 $(call inherit-product-if-exists, vendor/google_devices/gs101/proprietary/device-vendor.mk)
@@ -55,6 +52,10 @@ $(call soong_config_set,google3a_config,target_device,raven)
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.support_kernel_idle_timer=true
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.enable_frame_rate_override=true
+
+# sysconfig XML from stock
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/product-sysconfig-stock.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/product-sysconfig-stock.xml
 
 # Init files
 PRODUCT_COPY_FILES += \
@@ -259,6 +260,15 @@ PRODUCT_VENDOR_PROPERTIES += \
 # This device is shipped with 31 (Android S)
 PRODUCT_SHIPPING_API_LEVEL := 31
 
+# NowPlayingOverlay
+PRODUCT_PACKAGES += \
+        NowPlayingOverlay
+
+# GoogleCamera
+PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
+PRODUCT_PACKAGES += \
+    GoogleCamera
+
 # declare use of spatial audio
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.audio.spatializer_enabled=true
@@ -297,3 +307,4 @@ PRODUCT_VENDOR_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.quick_start.oem_id=00e0 \
     ro.quick_start.device_id=raven
+
